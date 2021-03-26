@@ -416,40 +416,39 @@ class Sign_In_With_Google_Admin {
 					<input name="submit" type="submit" id="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'sign-in-with-google' ); ?>" />
 				</p>
 			</form>
+			<div class="metabox-holder">
+				<div class="postbox">
+					<h3><span><?php esc_html_e( 'Export Settings', 'sign-in-with-google' ); ?></span></h3>
+					<div class="inside">
+						<p><?php esc_html_e( 'Export the plugin settings for this site as a .json file.', 'sign-in-with-google' ); ?></p>
+						<form method="post">
+							<p><input type="hidden" name="siwg_action" value="export_settings" /></p>
+							<p>
+								<?php wp_nonce_field( 'siwg_export_nonce', 'siwg_export_nonce' ); ?>
+								<?php submit_button( esc_html__( 'Export', 'sign-in-with-google' ), 'secondary', 'submit', false ); ?>
+							</p>
+						</form>
+					</div><!-- .inside -->
+				</div><!-- .postbox -->
+
+				<div class="postbox">
+					<h3><span><?php esc_html_e( 'Import Settings', 'sign-in-with-google' ); ?></span></h3>
+					<div class="inside">
+						<p><?php esc_html_e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'sign-in-with-google' ); ?></p>
+						<form method="post" enctype="multipart/form-data">
+							<p>
+								<input type="file" name="import_file"/>
+							</p>
+							<p>
+								<input type="hidden" name="siwg_action" value="import_settings" />
+								<?php wp_nonce_field( 'siwg_import_nonce', 'siwg_import_nonce' ); ?>
+								<?php submit_button( esc_html__( 'Import', 'sign-in-with-google' ), 'secondary', 'submit', false ); ?>
+							</p>
+						</form>
+					</div><!-- .inside -->
+				</div><!-- .postbox -->
+			</div><!-- .metabox-holder -->
 		</div>
-
-		<div class="metabox-holder">
-			<div class="postbox">
-				<h3><span><?php esc_html_e( 'Export Settings', 'sign-in-with-google' ); ?></span></h3>
-				<div class="inside">
-					<p><?php esc_html_e( 'Export the plugin settings for this site as a .json file.', 'sign-in-with-google' ); ?></p>
-					<form method="post">
-						<p><input type="hidden" name="siwg_action" value="export_settings" /></p>
-						<p>
-							<?php wp_nonce_field( 'siwg_export_nonce', 'siwg_export_nonce' ); ?>
-							<?php submit_button( esc_html__( 'Export', 'sign-in-with-google' ), 'secondary', 'submit', false ); ?>
-						</p>
-					</form>
-				</div><!-- .inside -->
-			</div><!-- .postbox -->
-
-			<div class="postbox">
-				<h3><span><?php esc_html_e( 'Import Settings', 'sign-in-with-google' ); ?></span></h3>
-				<div class="inside">
-					<p><?php esc_html_e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'sign-in-with-google' ); ?></p>
-					<form method="post" enctype="multipart/form-data">
-						<p>
-							<input type="file" name="import_file"/>
-						</p>
-						<p>
-							<input type="hidden" name="siwg_action" value="import_settings" />
-							<?php wp_nonce_field( 'siwg_import_nonce', 'siwg_import_nonce' ); ?>
-							<?php submit_button( esc_html__( 'Import', 'sign-in-with-google' ), 'secondary', 'submit', false ); ?>
-						</p>
-					</form>
-				</div><!-- .inside -->
-			</div><!-- .postbox -->
-		</div><!-- .metabox-holder -->
 
 		<?php
 
