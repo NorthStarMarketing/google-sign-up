@@ -518,7 +518,7 @@ class Sign_In_With_Google_Admin {
 
 		} else {
 
-			$this->check_domain_restriction();
+			$this->check_domain_restriction( get_option( 'siwg_google_domain_restriction' ), $this->get_domain_from_email( $this->user->email ) );
 
 			$user = $this->find_by_email_or_create( $this->user );
 
@@ -802,15 +802,30 @@ class Sign_In_With_Google_Admin {
 	 * Checks if the user has the right email domain.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @param array  $restricted_domains A list of allowed domains.
+	 * @param string $user_domain        The domain to check against.
 	 */
-	protected function check_domain_restriction() {
-		// The user doesn't have the correct domain, don't authenticate them.
-		$domains     = array_filter( explode( ', ', get_option( 'siwg_google_domain_restriction' ) ) );
-		$user_domain = explode( '@', $this->user->email );
-
-		if ( ! empty( $domains ) && ! in_array( $user_domain[1], $domains, true ) ) {
+	protected function check_domain_restriction( $restricted_domains = array(), $user_domain = '' ) {
+		// The user doesn't have the correct domain, don't authenticate them and show them an error on the login screen.
+		if ( ! empty( $domains ) && ! in_array( $user_domain, $restricted_domains, true ) ) {
 			wp_redirect( wp_login_url() . '?google_login=incorrect_domain' );
 			exit;
 		}
+	}
+
+	/**
+	 * Gets the domain from a user's email.
+	 *
+	 * @since n.e.x.t
+	 *
+	 * @param string $email The user's email.
+	 *
+	 * @return string The domain.
+	 */
+	private function get_domain_from_email( $email = '' ) {
+		$email_parts = explode( '@', $email );
+
+		return $email_parts[1];
 	}
 }
